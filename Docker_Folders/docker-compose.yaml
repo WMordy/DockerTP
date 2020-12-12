@@ -1,0 +1,62 @@
+version: "3"
+services:
+  server:
+    image: wmordy/playersapp
+    build : 
+      context: ./Web App
+      dockerfile: Dockerfile
+    ports:
+      - 5000:2699
+    networks:
+      app_net:
+        ipv4_address: 172.16.238.2
+    depends_on:  
+    - database 
+    volumes: ['tp-volume:/app']
+
+  database:
+    build : 
+      context: ./Database
+      dockerfile: Dockerfile
+    environment:
+      MYSQL_DATABASE: PLAYERS
+      MYSQL_ROOT_PASSWORD: rootroot
+    image: database-app
+    command: --default-authentication-plugin=mysql_native_password
+    stdin_open: true
+    ports:
+      - 3307:3306
+    networks:
+      app_net:
+        ipv4_address: 172.16.238.3
+    volumes:
+      - /usr/src/app:/var/lib/mysql
+  phpmyadmin:
+    image: phpmyadmin
+    container_name: pma
+    depends_on:  
+      - database
+    environment:
+      PMA_HOST: database
+      PMA_PORT: 3306
+      PMA_ARBITRARY: 1
+    restart: always
+    networks:
+      app_net:
+        ipv4_address: 172.16.238.4
+    ports:
+      - 8081:80
+
+networks:
+  app_net:
+    ipam:
+      driver: default
+      config:
+        - subnet: "172.16.238.0/24"
+
+
+volumes:
+  dbdata:
+  tp-volume:
+
+  

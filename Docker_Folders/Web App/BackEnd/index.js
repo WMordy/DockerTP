@@ -18,7 +18,7 @@ app.post('/pl',(req1,res1)=>{
     link : req1.body.link
   }
   var connection = mysql.createConnection({
-    host     : '172.17.0.2',
+    host     : '172.16.238.3',
     port : 3306,
     user     : 'root',
     password : 'rootroot',
@@ -36,7 +36,7 @@ app.post('/pl',(req1,res1)=>{
 
 app.get("/data",(req,res)=>{
   var connection = mysql.createConnection({
-    host     : '172.17.0.2',
+    host     : '172.16.238.3',
     port : 3306,
     user     : 'root',
     password : 'rootroot',
