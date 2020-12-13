@@ -1,0 +1,14 @@
+image : - wmordy/playersapp
+        - wmordy/database-app
+stages : 
+  - build
+  - test
+build :
+  stage : build
+  script : 
+    - docker-compose up
+test : 
+  stage : test 
+  script : 
+    - npm install -g jest 
+    - npm run test   
