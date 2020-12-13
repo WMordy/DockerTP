@@ -1,5 +1,6 @@
-image : - wmordy/playersapp
-        - wmordy/database-app
+image : 
+  - wmordy/playersapp
+  - wmordy/database-app
 stages : 
   - build
   - test
